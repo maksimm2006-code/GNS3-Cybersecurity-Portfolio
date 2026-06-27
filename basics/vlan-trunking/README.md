@@ -4,6 +4,8 @@ The objective of this lab is to practice VLAN (Virtual Local Area Network) and T
 2. Network Topology
 For this lab, I used two L3 switches (as GNS3, unlike Cisco Packet Tracer, has significantly limited L2 switch functionality) and four VPCS virtual computers.
 
+![Network Topology](basics/vlan-trunking/images/topology.png)
+
 Connections:
 • 	PC1 → port Fa1/1 on SW1
 • 	PC2 → port Fa1/2 on SW1
@@ -22,11 +24,17 @@ PC4 | VLAN 3 | 192.168.3.2 | 255.255.255.0 (/24)
 Creating a VLAN
 To create a VLAN, I used the vlan database command, which allows working with VLANs in VLAN database mode:
 
+ ![Configuration switch SW1](basics/vlan-trunking/images/config-vlan-sw1.png)
+
 Configuring Ports in Access Mode
 To connect computers, I configured ports in access mode and assigned them to the appropriate VLANs:
 
+![Configuration SW1 access](basics/vlan-trunking/images/config-sw1.png)
+
 Configuring the Trunk Port
 I configured port Fa1/0 as a trunk to forward traffic for all VLANs between the switches. It was important to ensure that the port allowed the required VLANs:
+
+![Configuration SW1 access](basics/vlan-trunking/images/config-trunk-sw1.png)
 
 4.3. Configuring Switch SW2
 Similar settings were made on the second switch.
@@ -52,12 +60,19 @@ For each virtual machine, I assigned IP addresses according to the addressing pl
 
 PC1 → PC3 (both in VLAN 2):
 
+![Ping test vlan 2](basics/vlan-trunking/images/ping-test-vlan2.png)
+
 PC2 → PC4 (both in VLAN 2)
+
+![Ping test vlan 3](basics/vlan-trunking/images/ping-test-vln3.png)
 
 6. Identified issues and solutions
 Issue: Trunk port not up
 Description: After configuring the trunk port, communication between the switches was not established, and pings between PC1 and PC3 failed.
 Troubleshooting: To check the port status, I used the following command:
+
+
+![Shutdown port](basics/vlan-trunking/images/shutdown port.png)
 
 Analysis: In the command output, I saw that the port was in an administratively down state, as after configuration, it was shut down with the shutdown command and then re-enabled with the no shutdown command. Sometimes, due to emulation issues, additional verification is required.
 
