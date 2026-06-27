@@ -72,7 +72,7 @@ Description: After configuring the trunk port, communication between the switche
 Troubleshooting: To check the port status, I used the following command:
 
 
-![Shutdown port](basics/vlan-trunking/images/shutdown port.png)
+![Shutdown port](basics/vlan-trunking/images/shutdown_port.png)
 
 Analysis: In the command output, I saw that the port was in an administratively down state, as after configuration, it was shut down with the shutdown command and then re-enabled with the no shutdown command. Sometimes, due to emulation issues, additional verification is required.
 
