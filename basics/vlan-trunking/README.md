@@ -1,85 +1,72 @@
-1. Цель работы
-Целью данной лабораторной работы является практическое освоение технологий VLAN (Virtual Local Area Network) и Trunking (802.1Q) в среде эмуляции GNS3. В рамках работы необходимо построить сеть из двух коммутаторов и четырёх виртуальных компьютеров, настроить VLAN для логической сегментации сети и организовать Trunk-соединение между коммутаторами для передачи трафика нескольких VLAN по одному физическому каналу.
+1. Objective of the Work
+The objective of this lab is to practice VLAN (Virtual Local Area Network) and Trunking (802.1Q) technologies in a GNS3 emulation environment. This lab requires building a network of two switches and four virtual computers, configuring VLANs for logical network segmentation, and establishing a trunk connection between the switches to transmit traffic from multiple VLANs over a single physical link.
 
-2. Топология сети
-Для выполнения работы я использовал два L3-коммутатора (так как в GNS3, в отличие от Cisco Packet Tracer, функциональность L2-коммутаторов существенно ограничена) и четыре виртуальных компьютера VPCS.
+2. Network Topology
+For this lab, I used two L3 switches (as GNS3, unlike Cisco Packet Tracer, has significantly limited L2 switch functionality) and four VPCS virtual computers.
 
+Connections:
+• 	PC1 → port Fa1/1 on SW1
+• 	PC2 → port Fa1/2 on SW1
+• 	PC3 → port Fa1/1 on SW2
+•	PC4 → port Fa1/2 on SW2
+• 	Trunk connection → port Fa1/0 between SW1 and SW2
 
-
-Подключения:
-•	PC1 → порт Fa1/1 на SW1
-•	PC2 → порт Fa1/2 на SW1
-•	PC3 → порт Fa1/1 на SW2
-•	PC4 → порт Fa1/2 на SW2
-•	Trunk-соединение → порт Fa1/0 между SW1 и SW2
-
-
-3. План адресации
+3. Addressing Plan
 PC1 | VLAN 2 | 192.168.2.1 | 255.255.255.0 (/24)
 PC2 | VLAN 3 | 192.168.3.1 | 255.255.255.0 (/24)
 PC3 | VLAN 2 | 192.168.2.2 | 255.255.255.0 (/24)
 PC4 | VLAN 3 | 192.168.3.2 | 255.255.255.0 (/24)
 
+4. Step-by-Step Implementation
+4.1. Configuring Switch SW1
+Creating a VLAN
+To create a VLAN, I used the vlan database command, which allows working with VLANs in VLAN database mode:
 
-4. Пошаговое выполнение
-4.1. Настройка коммутатора SW1
-Создание VLAN
-Для создания VLAN я использовал команду vlan database, что позволяет работать с VLAN в режиме базы данных VLAN:
-					
-			
+Configuring Ports in Access Mode
+To connect computers, I configured ports in access mode and assigned them to the appropriate VLANs:
 
-Настройка портов в режиме Access
-Для подключения компьютеров я настроил порты в режиме access и назначил их соответствующим VLAN:
+Configuring the Trunk Port
+I configured port Fa1/0 as a trunk to forward traffic for all VLANs between the switches. It was important to ensure that the port allowed the required VLANs:
 
+4.3. Configuring Switch SW2
+Similar settings were made on the second switch.
 
-Настройка Trunk-порта
-Порт Fa1/0 я настроил как Trunk для передачи трафика всех VLAN между коммутаторами. Важно было убедиться, что порт разрешает нужные VLAN:
+4.4. Configuring IP Addresses on the VPCS
+For each virtual machine, I assigned IP addresses according to the addressing plan:
 
-4.3. Настройка коммутатора SW2
-Аналогичные настройки были выполнены на втором коммутаторе.
+							PC1:
+						PC1> ip 192.168.2.1/24
+						PC1> show ip
 
-4.4. Настройка IP-адресов на VPCS
-Для каждого виртуального компьютера я назначил IP-адреса согласно плану адресации:
+							PC2:
+						PC2> ip 192.168.3.1/24
 
-					PC1:
-				PC1> ip 192.168.2.1/24
-				PC1> show ip
+							PC3:
+						PC3> ip 192.168.2.2/24
 
-					PC2:
-				PC2> ip 192.168.3.1/24
+							PC4:
+						PC4> ip 192.168.3.2/24
 
-					PC3:
-				PC3> ip 192.168.2.2/24
+5. Verifying Functionality
+5.1. Checking connectivity within VLANs
 
-					PC4:
-				PC4> ip 192.168.3.2/24
+PC1 → PC3 (both in VLAN 2):
 
+PC2 → PC4 (both in VLAN 2)
 
-5. Проверка работоспособности
-5.1. Проверка связности внутри VLAN
+6. Identified issues and solutions
+Issue: Trunk port not up
+Description: After configuring the trunk port, communication between the switches was not established, and pings between PC1 and PC3 failed.
+Troubleshooting: To check the port status, I used the following command:
 
+Analysis: In the command output, I saw that the port was in an administratively down state, as after configuration, it was shut down with the shutdown command and then re-enabled with the no shutdown command. Sometimes, due to emulation issues, additional verification is required.
 
-PC1 → PC3 (оба в VLAN 2):
-
-
-PC2 → PC4(оба в VLAN2)
-
-
-6. Выявленные проблемы и их решение
-Проблема: Trunk-порт не поднят
-Описание: После настройки Trunk-порта связь между коммутаторами не устанавливалась, и пинги между PC1 и PC3 не проходили.
-Диагностика: Для проверки состояния порта я использовал команду:
-
-Анализ: В выводе команды я увидел, что порт находится в состоянии administratively down, так как после настройки он был выключен командой shutdown, а затем включен обратно no shutdown. Иногда из-за особенностей эмуляции требуется дополнительная проверка.
-
-
-8. Выводы
-В ходе выполнения данной лабораторной работы я:
-1.	Построил сеть в GNS3 с использованием двух L3-коммутаторов и четырёх VPCS.
-2.	Настроил VLAN 2 и VLAN 3 для логической сегментации сети.
-3.	Настроил Trunk-соединение (802.1Q) между коммутаторами для передачи трафика нескольких VLAN по одному каналу.
-4.	Проверил работоспособность: устройства внутри одного VLAN успешно обмениваются данными, а между разными VLAN — нет (что соответствует ожидаемому поведению без межсетевой маршрутизации).
-5.	Изучил особенности GNS3: в отличие от Cisco Packet Tracer, в GNS3 для полноценной работы с VLAN на уровне L2 пришлось использовать L3-коммутаторы, что требует дополнительного понимания их возможностей и ограничений.
-6.	Научился диагностировать проблемы с Trunk-портами с помощью команды show interfaces.
-Данный опыт является важной частью моей подготовки в области сетевых технологий и кибербезопасности, так как понимание VLAN и Trunking необходимо для проектирования сегментированных и защищённых корпоративных сетей.
-
+8. Conclusions
+During this lab, I:
+1. Built a network in GNS3 using two L3 switches and four VPCS.
+2. Configured VLAN 2 and VLAN 3 for logical network segmentation.
+3. Configured a trunk connection (802.1Q) between switches to transmit traffic from multiple VLANs over a single link.
+4. Tested functionality: devices within the same VLAN successfully exchange data, but not between different VLANs (which corresponds to expected behavior without inter-network routing).
+5. Studied the specifics of GNS3: unlike Cisco Packet Tracer, GNS3 required the use of L3 switches to fully support VLANs at the Layer 2 level, which requires an additional understanding of their capabilities and limitations.
+6. Learned to diagnose problems with trunk ports using the show interfaces command.
+This experience is an important part of my networking and cybersecurity background, as an understanding of VLANs and trunking is essential for designing segmented and secure corporate networks.
