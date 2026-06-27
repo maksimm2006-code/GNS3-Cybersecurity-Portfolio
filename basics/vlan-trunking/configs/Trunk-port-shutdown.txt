@@ -1,0 +1,5 @@
+SW1# show interfaces FastEthernet1/0
+
+SW1(config)# interface FastEthernet1/0
+SW1(config-if)# no shutdown
+SW1(config-if)# end

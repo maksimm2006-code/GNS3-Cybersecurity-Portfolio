@@ -1,0 +1,29 @@
+SW2# vlan database
+SW2(vlan)# vlan 2
+VLAN 2 added:
+    Name: VLAN0002
+SW2(vlan)# vlan 3
+VLAN 3 added:
+    Name: VLAN0003
+SW2(vlan)# apply
+APPLY completed.
+SW2(vlan)# exit
+APPLY completed.
+
+SW2# conf t
+SW2(config)# int fa1/1
+SW2(config-if)# switchport mode access
+SW2(config-if)# switchport access vlan 2
+SW2(config-if)# exit
+
+SW2(config)# int fa1/2
+SW2(config-if)# switchport mode access
+SW2(config-if)# switchport access vlan 3
+SW2(config-if)# exit
+
+SW2(config)# int fa1/0
+SW2(config-if)# switchport mode trunk
+SW2(config-if)# switchport trunk allowed vlan 1-3,1002-1005
+SW2(config-if)# shutdown
+SW2(config-if)# no shutdown
+SW2(config-if)# end
