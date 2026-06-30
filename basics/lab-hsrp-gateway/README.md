@@ -96,7 +96,9 @@ VPCS   | eth0      |192.168.1.10| /24
  	ip address 4.4.4.4 255.255.255.255
  	exit
 
-![show ip int brief R1]()
+![show ip int brief R1](images/show_ip_int_R1.pdf)
+![show ip int brief R2](images/show_ip_int_R2.pdf)
+![show ip int brief R3](images/show_ip_int_R3.pdf)
 
 4. 🗺️ Routing Configuration (so clients can reach external networks)
 
@@ -121,7 +123,8 @@ VPCS   | eth0      |192.168.1.10| /24
  	network 10.0.23.0 0.0.0.255 area 0
  	network 4.4.4.4 0.0.0.0 area 0
 	
-		Screen
+![show ip route ospf R1](images/show_ip_route_ospf_R1.pdf)
+![show ip route ospf R2](images/show_ip_route_ospf_R2.pdf)
 
 
 5. 🔐 HSRP Configuration
@@ -143,7 +146,6 @@ VPCS   | eth0      |192.168.1.10| /24
  	exit
 
 
-
 6. 💻 Client Configuration
 
 On the VPCS client, set:
@@ -152,7 +154,7 @@ On the VPCS client, set:
 
 ⚠️ The client's default gateway is the virtual IP (192.168.1.254), not the physical IP of R1 or R2.
 
-		Screen
+![ip address VPCS](images/IP_VPCS.png)
 
 7. 🔍 Verification
 
@@ -160,13 +162,13 @@ Check HSRP state on R1:
 
 	show standby brief
 	
-	Screen
+![show standbly brief R1](images/show_standbly_brief_R1.png)
 
 Check HSRP state on R2:
 
 	show standby brief
 
-	Screen
+![show standbly brief R2](images/show_standbly_brief_R2.png)
 
 8. ⚡ Test: Failover Demonstration
 
@@ -177,7 +179,7 @@ From VPCS, run continuous ping to 4.4.4.4 (R3's loopback):
 
 ✅ All pings succeed. Traffic goes through R1 (Active).
 
-	Screen
+![Ping](images/PING_R2.png)
 
 Step 2 – Simulate failure:🔴
 On R1, shut down the interface connected to the client subnet:
@@ -190,7 +192,7 @@ Observe:
 
     📶 VPCS pings continue – only 1–2 packets may be lost (convergence time).
 
-		Screen
+![show standbly brief](images/show_brief_ping_R2.png)
 
 Step 3 – Restore R1:🔵
 On R1, bring the interface back up:
@@ -201,7 +203,7 @@ Observe:
 
     ✅ Client traffic automatically switches back to R1 (no interruption).
 		
-		Screen
+![show standbly brief](images/show_brief_R1.png)
 
 9. 🏁 Conclusion
 
