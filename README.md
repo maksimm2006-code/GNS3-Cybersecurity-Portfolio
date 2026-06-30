@@ -4,9 +4,9 @@ I built this portfolio to demonstrate my hands‑on skills – not just theory. 
 
 Repository structure:
 
-📂 basics – networking fundamentals: VLAN, Trunk, Etherchannel, OSPF, HSRP, GRE
+📂 basics – networking fundamentals: VLAN, Trunk, OSPF, HSRP, GRE
 
-🔐 security – network protection: ACL, Port Security, DHCP Snooping, SSH
+🔐 security – network protection: ACL, DHCP Snooping, SSH
 
 ⚔️ protocol-attacks – layer‑2/3 attacks: ARP Spoofing, DNS Spoofing, VLAN Hopping, DHCP Starvation
 
