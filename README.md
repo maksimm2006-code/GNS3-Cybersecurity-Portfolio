@@ -12,10 +12,6 @@ Repository structure:
 
 🎯 pentest-lab – full attack cycle: reconnaissance, exploitation, post‑exploitation
 
-🏢 enterprise – corporate networks: DMZ, VPN, high availability
-
-📊 soc-integration – monitoring: IDS/IPS (Snort), log collection (ELK), incident analysis
-
 Each lab folder contains:
 
 📘 LAB_GUIDE.md – step‑by‑step commands and explanations
@@ -31,6 +27,5 @@ Technologies I use:
 
 🔍 Wireshark, Metasploit, Nmap
 
-🛡️ Snort, ELK, Wazuh, pfSense
 
 Important: ⚠️ All projects are built in isolated lab environments and are intended for educational purposes only. I am not responsible for any misuse of these materials in real networks.
