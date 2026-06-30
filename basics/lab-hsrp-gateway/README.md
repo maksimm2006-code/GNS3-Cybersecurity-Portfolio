@@ -43,7 +43,7 @@ VPCS   | eth0      |192.168.1.10| /24
 
     🟡 R2 – Standby (priority 100)
 
-![Topology](images/topology.png)
+![Topology](images/Topology.png)
 
 
 3. ⚙️ Basic Interface Configuration
@@ -96,9 +96,9 @@ VPCS   | eth0      |192.168.1.10| /24
  	ip address 4.4.4.4 255.255.255.255
  	exit
 
-![show ip int brief R1](images/show_ip_int_R1.pdf)
-![show ip int brief R2](images/show_ip_int_R2.pdf)
-![show ip int brief R3](images/show_ip_int_R3.pdf)
+![show ip int brief R1](images/show_ip_int_brief_R1.png)
+![show ip int brief R2](images/show_ip_int_brief_R2.png)
+![show ip int brief R3](images/show_ip_int_brief_R3.png)
 
 4. 🗺️ Routing Configuration (so clients can reach external networks)
 
@@ -123,8 +123,8 @@ VPCS   | eth0      |192.168.1.10| /24
  	network 10.0.23.0 0.0.0.255 area 0
  	network 4.4.4.4 0.0.0.0 area 0
 	
-![show ip route ospf R1](images/show_ip_route_ospf_R1.pdf)
-![show ip route ospf R2](images/show_ip_route_ospf_R2.pdf)
+![show ip route ospf R1](images/show_ip_route_ospf_R1.png)
+![show ip route ospf R2](images/show_ip_route_ospf_R2.png)
 
 
 5. 🔐 HSRP Configuration
